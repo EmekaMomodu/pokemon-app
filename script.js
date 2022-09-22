@@ -1,5 +1,4 @@
-const mainElement = document.querySelector('main');
-
+/** Declaration and initialization of global fields */
 // array of pokemon data
 const pokemonArray = [
 
@@ -205,32 +204,63 @@ const pokemonArray = [
 
 ];
 
-// function to Create a DOM unordered list from the array of pokemon
-function createDomUnorderedListFromPokemonArray() {
+/** function definitions */
+function searchByNumber() {
 
-    const unorderedListElement = document.createElement('ul');
+    const numberToSearch = document.getElementById('inputSearchByNumber').value.trim();
 
-    mainElement.appendChild(unorderedListElement);
+    if (!(numberToSearch % 1 === 0 && numberToSearch.indexOf("e") === -1 && numberToSearch !== ""
+        && numberToSearch >= 1 && numberToSearch <= 20)) {
+        alert("INVALID INPUT: Input must be a valid integer between 1 and 20");
+        return;
+    }
 
-    let listElement;
+    for (let pokemon of pokemonArray) {
+        if (pokemon.number === parseInt(numberToSearch)) {
+            alert(JSON.stringify(pokemon));
+            return;
+        }
+    }
 
-    pokemonArray.forEach(function(pokemon) {
-
-        listElement = document.createElement('li');
-
-        listElement.innerHTML = `
-            <p>${pokemon.number}</p>
-            <p>${pokemon.name}</p>
-            <img src="${pokemon.image}" alt="${pokemon.name}" />
-            <p>${pokemon.description}</p>
-            <p>${pokemon.category}</p>
-            <p>${pokemon.height}</p>
-            <p>${pokemon.weight}</p>
-            <br>
-        `;
-
-        unorderedListElement.appendChild(listElement);
-    });
 }
 
-createDomUnorderedListFromPokemonArray();
+function searchByName() {
+
+    const nameToSearch = document.getElementById('inputSearchByName').value.trim().toUpperCase();
+
+    if (nameToSearch.length > 20) {
+        alert("INVALID INPUT: Length of input must not be greater than 20");
+        return;
+    }
+
+    const upperCaseAlphabets = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R',
+        'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+
+    let characterCount = 0;
+
+    for (let character of nameToSearch) {
+        for (let upperCaseAlphabet of upperCaseAlphabets) {
+            if (upperCaseAlphabet === character) {
+                characterCount += 1;
+                break;
+            }
+        }
+    }
+
+    if (nameToSearch.length !== characterCount) {
+        alert("INVALID INPUT: Input must contain only alphabets A-Z or a-z");
+        return;
+    }
+
+    let searchResult = [];
+
+    for (let pokemon of pokemonArray) {
+        if (pokemon.name.toUpperCase().includes(nameToSearch)) {
+            searchResult.push(pokemon);
+        }
+        if (searchResult.length === 5) break;
+    }
+
+    alert(JSON.stringify(searchResult));
+
+}
