@@ -3,8 +3,8 @@
 <head>
     <meta charset="utf-8">
     <title>SE 3316 Lab 1</title>
-    <meta content="" name="description">
-    <meta content="" name="author">
+    <meta content="ECE 9065 Lab 1" name="description">
+    <meta content="Chukwuemeka Momodu" name="author">
     <link href="style.css" rel="stylesheet">
 </head>
 <body>
@@ -14,15 +14,218 @@
     <div id="searchByNumber">
         <label for="inputSearchByNumber">Number</label>
         <input type="text" id="inputSearchByNumber" placeholder="Search for pokemon by number"/>
-        <button type="button" id="btnSearchByNumber">Search</button>
+        <button type="button" id="btnSearchByNumber" onclick="searchByNumber()">Search</button>
     </div>
     <div id="searchByName">
         <label for="inputSearchByName">Name</label>
         <input type="text" id="inputSearchByName" placeholder="Search for pokemon by name"/>
-        <button type="button" id="btnSearchByName">Search</button>
+        <button type="button" id="btnSearchByName" onclick="searchByName()">Search</button>
     </div>
 </div>
-<div id="pokemonList"></div>
+<div id="pokemonList">
+    <ul>
+        <li>
+            <p>1</p>
+            <p>Bulbasaur</p>
+            <img src="https://assets.pokemon.com/assets/cms2/img/pokedex/detail/001.png" alt="Bulbasaur" />
+            <p>There is a plant seed on its back right from the day this Pokemon is born. The seed slowly grows larger.</p>
+            <p>Seed</p>
+            <p>2' 04"</p>
+            <p>5.2 lbs</p>
+            <br>
+        </li>
+        <li>
+            <p>2</p>
+            <p>Ivysaur</p>
+            <img src="https://assets.pokemon.com/assets/cms2/img/pokedex/detail/002.png" alt="Ivysaur" />
+            <p>When the bulb on its back grows large, it appears to lose the ability to stand on its hind legs.</p>
+            <p>Seed</p>
+            <p>3' 03"</p>
+            <p>28.7 lbs</p>
+            <br>
+        </li>
+        <li>
+            <p>3</p>
+            <p>Venusaur</p>
+            <img src="https://assets.pokemon.com/assets/cms2/img/pokedex/detail/003.png" alt="Venusaur" />
+            <p>Its plant blooms when it is absorbing solar energy. It stays on the move to seek sunlight</p>
+            <p>Seed</p>
+            <p>6' 07"</p>
+            <p>220.5 lbs</p>
+            <br>
+        </li>
+        <li>
+            <p>4</p>
+            <p>Charmander</p>
+            <img src="https://assets.pokemon.com/assets/cms2/img/pokedex/detail/004.png" alt="Charmander" />
+            <p>It has a preference for hot things. When it rains, steam is said to spout from the tip of its tail. </p>
+            <p>Lizard</p>
+            <p>2' 00"</p>
+            <p>18.7 lbs</p>
+            <br>
+        </li>
+        <li>
+            <p>5</p>
+            <p>Charmeleon</p>
+            <img src="https://assets.pokemon.com/assets/cms2/img/pokedex/detail/005.png" alt="Charmeleon" />
+            <p>It has a barbaric nature. In battle, it whips its fiery tail around and slashes away with sharp claws.</p>
+            <p>Flame</p>
+            <p>3' 07"</p>
+            <p>41.9 lbs</p>
+            <br>
+        </li>
+        <li>
+            <p>6</p>
+            <p>Charizard</p>
+            <img src="https://assets.pokemon.com/assets/cms2/img/pokedex/detail/006.png" alt="Charizard" />
+            <p>It spits fire that is hot enough to melt boulders. It may cause forest fires by blowing flames.</p>
+            <p>Flame</p>
+            <p>5' 07"</p>
+            <p>199.5 lbs</p>
+            <br>
+        </li>
+        <li>
+            <p>7</p>
+            <p>Squirtle</p>
+            <img src="https://assets.pokemon.com/assets/cms2/img/pokedex/detail/007.png" alt="Squirtle" />
+            <p>When it retracts its long neck into its shell, it squirts out water with vigorous force.</p>
+            <p>Tiny Turtle</p>
+            <p>1' 08"</p>
+            <p>19.8 lbs</p>
+            <br>
+        </li>
+        <li>
+            <p>8</p>
+            <p>Wartortle</p>
+            <img src="https://assets.pokemon.com/assets/cms2/img/pokedex/detail/008.png" alt="Wartortle" />
+            <p>It is recognized as a symbol of longevity. If its shell has algae on it, that Wartortle is very old.</p>
+            <p>Turtle</p>
+            <p>3' 03"</p>
+            <p>49.6 lbs</p>
+            <br>
+        </li>
+        <li>
+            <p>9</p>
+            <p>Blastoise</p>
+            <img src="https://assets.pokemon.com/assets/cms2/img/pokedex/detail/009.png" alt="Blastoise" />
+            <p>It crushes its foe under its heavy body to cause fainting. In a pinch, it will withdraw inside its shell.</p>
+            <p>Shellfish</p>
+            <p>5' 03"</p>
+            <p>188.5 lbs</p>
+            <br>
+        </li>
+        <li>
+            <p>10</p>
+            <p>Caterpie</p>
+            <img src="https://assets.pokemon.com/assets/cms2/img/pokedex/detail/010.png" alt="Caterpie" />
+            <p>For protection, it releases a horrible stench from the antenna on its head to drive away enemies.</p>
+            <p>Worm</p>
+            <p>1' 00"</p>
+            <p>6.4 lbs</p>
+            <br>
+        </li>
+        <li>
+            <p>11</p>
+            <p>Metapod</p>
+            <img src="https://assets.pokemon.com/assets/cms2/img/pokedex/detail/011.png" alt="Metapod" />
+            <p>It is waiting for the moment to evolve. At this stage, it can only harden, so it remains motionless to avoid attack.</p>
+            <p>Cocoon</p>
+            <p>2' 04"</p>
+            <p>21.8 lbs</p>
+            <br>
+        </li>
+        <li>
+            <p>12</p>
+            <p>Butterfree</p>
+            <img src="https://assets.pokemon.com/assets/cms2/img/pokedex/detail/012.png" alt="Butterfree" />
+            <p>In battle, it flaps its wings at great speed to release highly toxic dust into the air</p>
+            <p>Butterfly</p>
+            <p>3' 07"</p>
+            <p>70.5 lbs</p>
+            <br>
+        </li>
+        <li>
+            <p>13</p>
+            <p>Weedle</p>
+            <img src="https://assets.pokemon.com/assets/cms2/img/pokedex/detail/013.png" alt="Weedle" />
+            <p>Beware of the sharp stinger on its head. It hides in grass and bushes where it eats leaves.</p>
+            <p>Hairy Bug</p>
+            <p>1' 00"</p>
+            <p>7.1 lbs</p>
+            <br>
+        </li>
+        <li>
+            <p>14</p>
+            <p>Kakuna</p>
+            <img src="https://assets.pokemon.com/assets/cms2/img/pokedex/detail/014.png" alt="Kakuna" />
+            <p>Able to move only slightly. When endangered, it may stick out its stinger and poison its enemy</p>
+            <p>Cocoon</p>
+            <p>2' 00"</p>
+            <p>22.0 lbs</p>
+            <br>
+        </li>
+        <li>
+            <p>15</p>
+            <p>Beedrill</p>
+            <img src="https://assets.pokemon.com/assets/cms2/img/pokedex/detail/015.png" alt="Beedrill" />
+            <p>It has three poisonous stingers on its forelegs and its tail. They are used to jab its enemy repeatedly</p>
+            <p>Poison Bee</p>
+            <p>3' 03"</p>
+            <p>65.0 lbs</p>
+            <br>
+        </li>
+        <li>
+            <p>16</p>
+            <p>Pidgey</p>
+            <img src="https://assets.pokemon.com/assets/cms2/img/pokedex/detail/016.png" alt="Pidgey" />
+            <p>"Very docile. If attacked, it will often kick up sand to protect itself rather than fight back</p>
+            <p>Tiny Bird</p>
+            <p>1' 00"</p>
+            <p>4.0 lbs</p>
+            <br>
+        </li>
+        <li>
+            <p>17</p>
+            <p>Pidgeotto</p>
+            <img src="https://assets.pokemon.com/assets/cms2/img/pokedex/detail/017.png" alt="Pidgeotto" />
+            <p>This Pokémon is full of vitality. It constantly flies around its large territory in search of prey</p>
+            <p>Bird</p>
+            <p>3' 07"</p>
+            <p>66.1 lbs</p>
+            <br>
+        </li>
+        <li>
+            <p>18</p>
+            <p>Pidgeot</p>
+            <img src="https://assets.pokemon.com/assets/cms2/img/pokedex/detail/018.png" alt="Pidgeot" />
+            <p>This Pokémon flies at Mach 2 speed, seeking prey. Its large talons are feared as wicked weapons</p>
+            <p>Bird</p>
+            <p>4' 11"</p>
+            <p>87.1 lbs</p>
+            <br>
+        </li>
+        <li>
+            <p>19</p>
+            <p>Rattata</p>
+            <img src="https://assets.pokemon.com/assets/cms2/img/pokedex/detail/019.png" alt="Rattata" />
+            <p>Will chew on anything with its fangs. If you see one, you can be certain that 40 more live in the area</p>
+            <p>Mouse</p>
+            <p>1' 00"</p>
+            <p>7.7 lbs</p>
+            <br>
+        </li>
+        <li>
+            <p>20</p>
+            <p>Raticate</p>
+            <img src="https://assets.pokemon.com/assets/cms2/img/pokedex/detail/020.png" alt="Raticate" />
+            <p>Its hind feet are webbed. They act as flippers, so it can swim in rivers and hunt for prey</p>
+            <p>Mouse</p>
+            <p>2' 04"</p>
+            <p>40.8 lbs</p>
+            <br>
+        </li>
+    </ul>
+</div>
 <div id="reference">
     <h3><u>References</u></h3>
     <ol>
