@@ -6,20 +6,22 @@
     <meta content="ECE 9065 Lab 1" name="description">
     <meta content="Chukwuemeka Momodu" name="author">
     <link href="style.css" rel="stylesheet">
+    <link rel="icon" type="image/png" href="favicon.png">
 </head>
 <body>
 <!-- Place your content here -->
-<h1>SE 3316 Lab 1</h1>
-<div id="search">
-    <div id="searchByNumber">
-        <label for="inputSearchByNumber">Number</label>
-        <input type="text" id="inputSearchByNumber" placeholder="Search for pokemon by number"/>
-        <button type="button" id="btnSearchByNumber" onclick="searchByNumber()">Search</button>
+<div class="container">
+<h1>Pokédex</h1>
+<div id="search" class="search-box-group">
+    <div id="searchByNumber" class="form-control">
+        <label for="inputSearchByNumber">Search by number</label>
+        <input type="text" id="inputSearchByNumber" placeholder="Enter pokemon number"/>
+        <button class="search-btn" type="button" id="btnSearchByNumber" onclick="searchByNumber()">Search</button>
     </div>
-    <div id="searchByName">
-        <label for="inputSearchByName">Name</label>
-        <input type="text" id="inputSearchByName" placeholder="Search for pokemon by name"/>
-        <button type="button" id="btnSearchByName" onclick="searchByName()">Search</button>
+    <div id="searchByName" class="form-control">
+        <label for="inputSearchByName">Search by name</label>
+        <input type="text" id="inputSearchByName" placeholder="Enter pokemon name"/>
+        <button class="search-btn" type="button" id="btnSearchByName" onclick="searchByName()">Search</button>
     </div>
 </div>
 <div id="pokemonList">
@@ -236,6 +238,7 @@
             Pokemon excel from <a href="https://www.reddit.com/r/TheSilphRoad/comments/7p952h/pokemon_go_pokedex_spreadsheet/">https://www.reddit.com/r/TheSilphRoad/comments/7p952h/pokemon_go_pokedex_spread sheet/</a>
         </li>
     </ol>
+</div>
 </div>
 <!-- Embedded JavaScript go here -->
 <script src="script.js"></script>
