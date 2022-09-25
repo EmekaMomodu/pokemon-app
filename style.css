@@ -7,7 +7,7 @@ body {
 
 .container {
     margin: auto;
-    padding: 20px;
+    padding: 40px;
 }
 
 h1, h3 {
@@ -57,11 +57,6 @@ input[type='text'] {
 span {
     font-style: italic;
     opacity: 60%;
-}
-
-.center-justified {
-    text-align: justify;;
-    text-align-last: center;
 }
 
 .pokemon-list-item {
