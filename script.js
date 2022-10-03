@@ -289,16 +289,23 @@ function searchByName() {
     alert(JSON.stringify(searchResult));
 }
 
-// function to search for pokemon by number and add all found to DOM
-function addToDomByNumber(event) {
-    const number = event.target.value.trim();
+// function to add pokemons to DOM by searchType
+function addToDom(event, searchType) {
+
+    if (searchType === 'number') {
+        inputSearchByName.value = '';
+    } else {
+        inputSearchByNumber.value = '';
+    }
+
+    const searchInput = event.target.value.trim().toUpperCase();
 
     const divOfDynamicPokemonListId = 'divOfDynamicPokemonList';
 
     const divOfPrevDynamicPokemonList = document.getElementById(divOfDynamicPokemonListId);
     divOfPrevDynamicPokemonList?.remove();
 
-    if (number !== '') {
+    if (searchInput !== '') {
         const divOfDynamicPokemonList = document.createElement('div');
         divOfDynamicPokemonList.id = divOfDynamicPokemonListId;
 
@@ -308,9 +315,13 @@ function addToDomByNumber(event) {
         const ulOfDynamicPokemonList = document.createElement('ul');
         ulOfDynamicPokemonList.classList.add('pokemon-list');
 
-        // traverse pokemonArray and compare each element's number property with numberToSearch to find a match
+        // traverse pokemonArray and compare each element's searchInput property with numberToSearch to find a match
         for (let pokemon of pokemonArray) {
-            if (pokemon.number === Number(number)) {
+            if (
+                (searchType === 'number' && pokemon.number === Number(searchInput))
+                ||
+                (searchType === 'name' && pokemon.name.toUpperCase().includes(searchInput))
+            ) {
                 const li = document.createElement('li');
                 li.classList.add('pokemon-list-item');
 
@@ -356,8 +367,6 @@ function addToDomByNumber(event) {
                 li.append(img, line, h4, pDescription, pCategory, pHeight, pWeight);
 
                 ulOfDynamicPokemonList.appendChild(li);
-
-                break;
             }
         }
 
@@ -379,9 +388,13 @@ function addToDomByNumber(event) {
 }
 
 // function to search for pokemon by name and add all found to DOM
+function addToDomByNumber(event) {
+    addToDom(event, 'number');
+}
+
+// function to search for pokemon by name and add all found to DOM
 function addToDomByName(event) {
-    const name = event.target.value.toUpperCase();
-    console.log(JSON.stringify(name));
+    addToDom(event, 'name');
 }
 
 // Event listeners
