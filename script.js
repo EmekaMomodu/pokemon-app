@@ -183,55 +183,55 @@ const pokemonArray = [
 // uppercase english alphabets
 const upperCaseAlphabets = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R',
     'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+// get inputSearchByNumber element from the DOM
+const inputSearchByNumber = document.getElementById('inputSearchByNumber');
+// get inputSearchByName element from the DOM
+const inputSearchByName = document.getElementById('inputSearchByName');
+// get btnSearchByNumber element from the DOM
+const btnSearchByNumber = document.getElementById('btnSearchByNumber');
+// get btnSearchByName element from the DOM
+const btnSearchByName = document.getElementById('btnSearchByName');
 
 // function to search for pokemon by number
 function searchByNumber() {
-
-    // get input from the DOM by input element ID
-    const input = document.getElementById('inputSearchByNumber').value.trim().toUpperCase();
-
+    // get input value, trim and change case to uppercase
+    const numberToSearch = inputSearchByNumber.value.trim().toUpperCase();
     /*
-    validate input:
+    validate numberToSearch:
     1 - is a valid integer,
     2 - does not contain the scientific notation 'e' or 'E'
     3 - is not empty
     4 - is between 1 and 20 inclusive
     */
-    if (!(input % 1 === 0
-        && input.indexOf("E") === -1
-        && input !== ""
-        && input >= 1 && input <= 20)) {
+    if (!(numberToSearch % 1 === 0
+        && numberToSearch.indexOf("E") === -1
+        && numberToSearch !== ""
+        && numberToSearch >= 1 && numberToSearch <= 20)) {
         alert("INVALID INPUT: Input must be a valid integer between 1 and 20");
         return;
     }
-
-    // traverse pokemonArray and compare each element's number property with input to find a match
+    // traverse pokemonArray and compare each element's number property with numberToSearch to find a match
     for (let pokemon of pokemonArray) {
-        if (pokemon.number === parseInt(input)) {
+        if (pokemon.number === parseInt(numberToSearch)) {
             alert(JSON.stringify(pokemon));
             return;
         }
     }
-
 }
 
 // function to search for pokemon by name
 function searchByName() {
-
-    // get input from the DOM by input element ID
-    const input = document.getElementById('inputSearchByName').value.trim().toUpperCase();
-
+    // get input value, trim and change case to uppercase
+    const nameToSearch = inputSearchByName.value.trim().toUpperCase();
     // validate input length is not more than 20
-    if (input.length > 20) {
+    if (nameToSearch.length > 20) {
         alert("INVALID INPUT: Length of input must not be greater than 20");
         return;
     }
-
     // variable to track count of all valid english alphabets present in the input
     let validCharacterCount = 0;
-
     // traverse each character in the input and count any character that is a valid english alphabet
-    for (let character of input) {
+    for (let character of nameToSearch) {
         for (let upperCaseAlphabet of upperCaseAlphabets) {
             if (upperCaseAlphabet === character) {
                 validCharacterCount += 1;
@@ -239,31 +239,28 @@ function searchByName() {
             }
         }
     }
-
     // check that the length of input is equal to valid character count
-    if (input.length !== validCharacterCount) {
+    if (nameToSearch.length !== validCharacterCount) {
         alert("INVALID INPUT: Input must contain only alphabets A-Z or a-z");
         return;
     }
-
     // initialize search result as an empty list
     let searchResult = [];
-
     // traverse pokemonArray and compare each element's name property with input to find a match
     for (let pokemon of pokemonArray) {
-        if (pokemon.name.toUpperCase().includes(input)) {
+        if (pokemon.name.toUpperCase().includes(nameToSearch)) {
             searchResult.push(pokemon);
         }
         if (searchResult.length === 5) break;
     }
-
     // check if search result is empty and alert a message
     if (searchResult.length === 0) {
         alert("Oops no match found");
         return;
     }
-
     // alert result found
     alert(JSON.stringify(searchResult));
-
 }
+
+btnSearchByNumber.addEventListener('click', searchByNumber);
+btnSearchByName.addEventListener('click', searchByName);
