@@ -207,7 +207,7 @@ const upperCaseAlphabets = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K
     'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
 const invalidNumberMessage = 'INVALID INPUT! \nInput must be a valid integer between 1 and 20';
 const invalidNameMessage = 'INVALID INPUT! \nInput must contain only alphabets A-Z or a-z ' +
-    'and must be 20 characters long at max';
+    'and must be at most 20 characters long';
 const noMatchFoundMessage = 'Oops! no match found';
 const numberSearchType = 'number';
 const nameSearchType = 'name';
@@ -336,6 +336,7 @@ function addToDom(event, searchType) {
     divOfPrevDynamicPokemonList?.remove();
 
     if (searchInput !== '') {
+
         const divOfDynamicPokemonList = document.createElement('div');
         divOfDynamicPokemonList.id = divOfDynamicPokemonListId;
 
@@ -345,74 +346,84 @@ function addToDom(event, searchType) {
         const ulOfDynamicPokemonList = document.createElement('ul');
         ulOfDynamicPokemonList.classList.add('pokemon-list');
 
-        // traverse pokemonArray and compare each element's searchInput property with numberToSearch to find a match
-        for (let pokemon of pokemonArray) {
-            if (
-                (searchType === numberSearchType && pokemon.number === Number(searchInput))
-                ||
-                (searchType === nameSearchType && pokemon.name.toUpperCase().includes(searchInput))
-            ) {
-                const li = document.createElement('li');
-                li.classList.add('pokemon-list-item');
-
-                const img = document.createElement('img');
-                img.alt = pokemon.name;
-                img.src = pokemon.image;
-
-                const line = document.createElement('hr');
-
-                const h4 = document.createElement('h4');
-                const pokemonNumWithZeroPadding = pokemon.number < 10 ? ('00' + pokemon.number) : ('0' + pokemon.number);
-                h4.textContent = pokemonNumWithZeroPadding + " - " + pokemon.name;
-
-                const description = 'Description';
-                const category = 'Category';
-                const height = 'Height';
-                const weight = 'Weight';
-
-                const pDescription = document.createElement('p');
-                const spanDescription = document.createElement('span');
-                spanDescription.textContent = description;
-                const descriptionText = document.createTextNode(': ' + pokemon.description);
-                pDescription.append(spanDescription, descriptionText);
-
-                const pCategory = document.createElement('p');
-                const spanCategory = document.createElement('span');
-                spanCategory.textContent = category;
-                const categoryText = document.createTextNode(': ' + pokemon.category);
-                pCategory.append(spanCategory, categoryText);
-
-                const pHeight = document.createElement('p');
-                const spanHeight = document.createElement('span');
-                spanHeight.textContent = height;
-                const heightText = document.createTextNode(': ' + pokemon.height);
-                pHeight.append(spanHeight, heightText);
-
-                const pWeight = document.createElement('p');
-                const spanWeight = document.createElement('span');
-                spanWeight.textContent = weight;
-                const weightText = document.createTextNode(': ' + pokemon.weight);
-                pWeight.append(spanWeight, weightText);
-
-                li.append(img, line, h4, pDescription, pCategory, pHeight, pWeight);
-
-                ulOfDynamicPokemonList.appendChild(li);
-            }
-        }
-
         const searchMessageEnd = document.createElement('h3');
         searchMessageEnd.textContent = 'END search result';
 
         const line = document.createElement('hr');
 
-        if (ulOfDynamicPokemonList.hasChildNodes()) {
-            divOfDynamicPokemonList.append(searchMessageStart, ulOfDynamicPokemonList, searchMessageEnd, line);
+        //validate input else if valid search pokemon array for match
+        if (searchType === numberSearchType && isNumberToSearchNotValid(searchInput)) {
+            const pInvalidInput = document.createElement('p');
+            pInvalidInput.textContent = invalidNumberMessage;
+            divOfDynamicPokemonList.append(searchMessageStart, pInvalidInput, searchMessageEnd, line);
+        } else if (searchType === nameSearchType && isNameToSearchNotValid(searchInput)) {
+            const pInvalidInput = document.createElement('p');
+            pInvalidInput.textContent = invalidNameMessage;
+            divOfDynamicPokemonList.append(searchMessageStart, pInvalidInput, searchMessageEnd, line);
         } else {
-            const pNoResult = document.createElement('p');
-            pNoResult.textContent = noMatchFoundMessage;
-            divOfDynamicPokemonList.append(searchMessageStart, pNoResult, searchMessageEnd, line);
-        }
+            // traverse pokemonArray and compare each element's searchInput property with Search input to find a match
+            for (let pokemon of pokemonArray) {
+                if (
+                    (searchType === numberSearchType && pokemon.number === Number(searchInput))
+                    ||
+                    (searchType === nameSearchType && pokemon.name.toUpperCase().includes(searchInput))
+                ) {
+                    const li = document.createElement('li');
+                    li.classList.add('pokemon-list-item');
 
+                    const img = document.createElement('img');
+                    img.alt = pokemon.name;
+                    img.src = pokemon.image;
+
+                    const line = document.createElement('hr');
+
+                    const h4 = document.createElement('h4');
+                    const pokemonNumWithZeroPadding = pokemon.number < 10 ? ('00' + pokemon.number) : ('0' + pokemon.number);
+                    h4.textContent = pokemonNumWithZeroPadding + " - " + pokemon.name;
+
+                    const description = 'Description';
+                    const category = 'Category';
+                    const height = 'Height';
+                    const weight = 'Weight';
+
+                    const pDescription = document.createElement('p');
+                    const spanDescription = document.createElement('span');
+                    spanDescription.textContent = description;
+                    const descriptionText = document.createTextNode(': ' + pokemon.description);
+                    pDescription.append(spanDescription, descriptionText);
+
+                    const pCategory = document.createElement('p');
+                    const spanCategory = document.createElement('span');
+                    spanCategory.textContent = category;
+                    const categoryText = document.createTextNode(': ' + pokemon.category);
+                    pCategory.append(spanCategory, categoryText);
+
+                    const pHeight = document.createElement('p');
+                    const spanHeight = document.createElement('span');
+                    spanHeight.textContent = height;
+                    const heightText = document.createTextNode(': ' + pokemon.height);
+                    pHeight.append(spanHeight, heightText);
+
+                    const pWeight = document.createElement('p');
+                    const spanWeight = document.createElement('span');
+                    spanWeight.textContent = weight;
+                    const weightText = document.createTextNode(': ' + pokemon.weight);
+                    pWeight.append(spanWeight, weightText);
+
+                    li.append(img, line, h4, pDescription, pCategory, pHeight, pWeight);
+
+                    ulOfDynamicPokemonList.appendChild(li);
+                }
+            }
+
+            if (ulOfDynamicPokemonList.hasChildNodes()) {
+                divOfDynamicPokemonList.append(searchMessageStart, ulOfDynamicPokemonList, searchMessageEnd, line);
+            } else {
+                const pNoResult = document.createElement('p');
+                pNoResult.textContent = noMatchFoundMessage;
+                divOfDynamicPokemonList.append(searchMessageStart, pNoResult, searchMessageEnd, line);
+            }
+        }
         pokemonListContainer.insertBefore(divOfDynamicPokemonList, pokemonList);
     }
 }
