@@ -205,7 +205,10 @@ const pokemonArray = [
 // uppercase english alphabets
 const upperCaseAlphabets = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R',
     'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
-const invalidNumberMessage = 'INVALID INPUT: Input must be a valid integer between 1 and 20';
+const invalidNumberMessage = 'INVALID INPUT! \nInput must be a valid integer between 1 and 20';
+const invalidNameMessage = 'INVALID INPUT! \nInput must contain only alphabets A-Z or a-z ' +
+    'and must be 20 characters long at max';
+const noMatchFoundMessage = 'Oops! no match found';
 // get inputSearchByNumber element from the DOM
 const inputSearchByNumber = document.getElementById('inputSearchByNumber');
 // get inputSearchByName element from the DOM
@@ -242,6 +245,7 @@ function searchByNumber() {
     }
 }
 
+// function to validate number input to search
 function isNumberToSearchNotValid(numberToSearch) {
     // get input value, trim and change case to uppercase
     numberToSearch = numberToSearch.trim().toUpperCase();
@@ -258,34 +262,19 @@ function isNumberToSearchNotValid(numberToSearch) {
         && numberToSearch.indexOf(".") === -1
         && numberToSearch !== ""
         && numberToSearch >= 1 && numberToSearch <= 20);
-
 }
 
 // function to search for pokemon by name
 function searchByName() {
     // get input value, trim and change case to uppercase
-    const name = inputSearchByName.value.trim().toUpperCase();
-    // validate input length is not more than 20
-    if (name.length > 20) {
-        alert("INVALID INPUT: Length of input must not be greater than 20");
+    let name = inputSearchByName.value;
+    // validate input
+    if (isNameToSearchNotValid(name)) {
+        alert(invalidNameMessage);
         return;
     }
-    // variable to track count of all valid english alphabets present in the input
-    let validCharacterCount = 0;
-    // traverse each character in the input and count any character that is a valid english alphabet
-    for (let character of name) {
-        for (let upperCaseAlphabet of upperCaseAlphabets) {
-            if (upperCaseAlphabet === character) {
-                validCharacterCount += 1;
-                break;
-            }
-        }
-    }
-    // check that the length of input is equal to valid character count
-    if (name.length !== validCharacterCount) {
-        alert("INVALID INPUT: Input must contain only alphabets A-Z or a-z");
-        return;
-    }
+    // trim and uppercase name
+    name = name.trim().toUpperCase();
     // initialize search result as an empty list
     let searchResult = [];
     // traverse pokemonArray and compare each element's name property with input to find a match
@@ -298,15 +287,34 @@ function searchByName() {
     }
     // check if search result is empty and alert a message
     if (searchResult.length === 0) {
-        alert("Oops no match found");
+        alert(noMatchFoundMessage);
         return;
     }
     // alert result found
     alert(JSON.stringify(searchResult));
 }
 
+// function to validate name input to search
 function isNameToSearchNotValid(nameToSearch) {
-
+    // get input value, trim and change case to uppercase
+    nameToSearch = nameToSearch.trim().toUpperCase();
+    // validate input length is not more than 20
+    if (nameToSearch.length > 20) {
+        return true;
+    }
+    // variable to track count of all valid english alphabets present in the input
+    let validCharacterCount = 0;
+    // traverse each character in the input and count any character that is a valid english alphabet
+    for (let character of nameToSearch) {
+        for (let upperCaseAlphabet of upperCaseAlphabets) {
+            if (upperCaseAlphabet === character) {
+                validCharacterCount += 1;
+                break;
+            }
+        }
+    }
+    // check that the length of input is equal to valid character count
+    return nameToSearch.length !== validCharacterCount;
 }
 
 // function to add pokemons to DOM by searchType
@@ -399,7 +407,7 @@ function addToDom(event, searchType) {
             divOfDynamicPokemonList.append(searchMessageStart, ulOfDynamicPokemonList, searchMessageEnd, line);
         } else {
             const pNoResult = document.createElement('p');
-            pNoResult.textContent = 'No result found'
+            pNoResult.textContent = noMatchFoundMessage;
             divOfDynamicPokemonList.append(searchMessageStart, pNoResult, searchMessageEnd, line);
         }
 
