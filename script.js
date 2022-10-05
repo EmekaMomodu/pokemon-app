@@ -205,6 +205,7 @@ const pokemonArray = [
 // uppercase english alphabets
 const upperCaseAlphabets = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R',
     'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+const invalidNumberMessage = 'INVALID INPUT: Input must be a valid integer between 1 and 20';
 // get inputSearchByNumber element from the DOM
 const inputSearchByNumber = document.getElementById('inputSearchByNumber');
 // get inputSearchByName element from the DOM
@@ -219,30 +220,45 @@ const pokemonList = document.getElementById('pokemonList');
 
 // function to search for pokemon by number
 function searchByNumber() {
-    // get input value, trim and change case to uppercase
-    const number = inputSearchByNumber.value.trim().toUpperCase();
-    /*
+    // get input value
+    const number = inputSearchByNumber.value;    /*
     validate numberToSearch:
     1 - is a valid integer,
     2 - does not contain the scientific notation 'e' or 'E'
     3 - is not empty
     4 - is between 1 and 20 inclusive
     */
-    if (!(number % 1 === 0
-        && number.indexOf("E") === -1
-        && number !== ""
-        && number >= 1 && number <= 20)) {
-        alert("INVALID INPUT: Input must be a valid integer between 1 and 20");
+    if (isNumberToSearchNotValid(number)) {
+        alert(invalidNumberMessage);
         return;
     }
     // traverse pokemonArray and compare each element's number property with numberToSearch to find a match
     for (let pokemon of pokemonArray) {
-        if (pokemon.number === parseInt(number)) {
+        if (pokemon.number === Number(number)) {
             pokemon.image = undefined;
             alert(JSON.stringify(pokemon));
             return;
         }
     }
+}
+
+function isNumberToSearchNotValid(numberToSearch) {
+    // get input value, trim and change case to uppercase
+    numberToSearch = numberToSearch.trim().toUpperCase();
+    /*
+    validate numberToSearch:
+    1 - is a valid integer,
+    2 - does not contain the scientific notation 'e' or 'E'
+    3 - does not contain a decimal point '.'
+    4 - is not empty
+    5 - is between 1 and 20 inclusive
+    */
+    return !(numberToSearch % 1 === 0
+        && numberToSearch.indexOf("E") === -1
+        && numberToSearch.indexOf(".") === -1
+        && numberToSearch !== ""
+        && numberToSearch >= 1 && numberToSearch <= 20);
+
 }
 
 // function to search for pokemon by name
