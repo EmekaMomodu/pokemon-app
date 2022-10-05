@@ -209,6 +209,8 @@ const invalidNumberMessage = 'INVALID INPUT! \nInput must be a valid integer bet
 const invalidNameMessage = 'INVALID INPUT! \nInput must contain only alphabets A-Z or a-z ' +
     'and must be 20 characters long at max';
 const noMatchFoundMessage = 'Oops! no match found';
+const numberSearchType = 'number';
+const nameSearchType = 'name';
 // get inputSearchByNumber element from the DOM
 const inputSearchByNumber = document.getElementById('inputSearchByNumber');
 // get inputSearchByName element from the DOM
@@ -217,7 +219,6 @@ const inputSearchByName = document.getElementById('inputSearchByName');
 const btnSearchByNumber = document.getElementById('btnSearchByNumber');
 // get btnSearchByName element from the DOM
 const btnSearchByName = document.getElementById('btnSearchByName');
-
 const pokemonListContainer = document.getElementById('pokemonListContainer');
 const pokemonList = document.getElementById('pokemonList');
 
@@ -320,9 +321,10 @@ function isNameToSearchNotValid(nameToSearch) {
 // function to add pokemons to DOM by searchType
 function addToDom(event, searchType) {
 
-    if (searchType === 'number') {
+    // reset input search box for name if searching with number input search box and vice versa
+    if (searchType === numberSearchType) {
         inputSearchByName.value = '';
-    } else {
+    } else if (searchType === nameSearchType) {
         inputSearchByNumber.value = '';
     }
 
@@ -346,9 +348,9 @@ function addToDom(event, searchType) {
         // traverse pokemonArray and compare each element's searchInput property with numberToSearch to find a match
         for (let pokemon of pokemonArray) {
             if (
-                (searchType === 'number' && pokemon.number === Number(searchInput))
+                (searchType === numberSearchType && pokemon.number === Number(searchInput))
                 ||
-                (searchType === 'name' && pokemon.name.toUpperCase().includes(searchInput))
+                (searchType === nameSearchType && pokemon.name.toUpperCase().includes(searchInput))
             ) {
                 const li = document.createElement('li');
                 li.classList.add('pokemon-list-item');
@@ -417,12 +419,12 @@ function addToDom(event, searchType) {
 
 // function to search for pokemon by name and add all found to DOM
 function addToDomByNumber(event) {
-    addToDom(event, 'number');
+    addToDom(event, numberSearchType);
 }
 
 // function to search for pokemon by name and add all found to DOM
 function addToDomByName(event) {
-    addToDom(event, 'name');
+    addToDom(event, nameSearchType);
 }
 
 // Event listeners
