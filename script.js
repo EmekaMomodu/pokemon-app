@@ -305,6 +305,10 @@ function searchByName() {
     alert(JSON.stringify(searchResult));
 }
 
+function isNameToSearchNotValid(nameToSearch) {
+
+}
+
 // function to add pokemons to DOM by searchType
 function addToDom(event, searchType) {
 
